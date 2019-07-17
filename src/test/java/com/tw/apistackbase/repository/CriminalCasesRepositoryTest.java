@@ -1,13 +1,20 @@
 package com.tw.apistackbase.repository;
 
 import com.tw.apistackbase.entity.CriminalCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 
@@ -16,6 +23,7 @@ import static org.junit.Assert.assertSame;
 public class CriminalCasesRepositoryTest {
     @Autowired
     private CriminalCasesRepository criminalCasesRepository;
+
     @Test
     public void should_add_criminal_case_when_give_vaild_criminal_case(){
         CriminalCase criminalCase = new CriminalCase();
@@ -30,5 +38,26 @@ public class CriminalCasesRepositoryTest {
         CriminalCase criminalCase1 =criminalCasesRepository.save(criminalCase);
         assertSame(null,criminalCase1.getCaseName());
     }
-
+    @Test
+    public void should_return_specific_criminal_cases_when_query_function(){
+        CriminalCase criminalCase = criminalCasesRepository.findById(Long.valueOf(1)).orElse(null);
+        System.out.println(criminalCase.getCaseName()+criminalCase.getIncidentTime());
+        assertSame("BBBB",criminalCase.getCaseName());
+        assertEquals(123143223,criminalCase.getIncidentTime());
+    }
+    @Test
+    public void should_return_all_criminal_cases_when_query_function(){
+        List<CriminalCase> criminalCases = criminalCasesRepository.findAll(new Sort(Sort.Direction.DESC,"incidentTime"));
+        CriminalCase queryCriminalCase = criminalCases.stream().findFirst().orElse(null);
+        assertSame("CCCC",queryCriminalCase.getCaseName());
+        assertEquals(764832224,queryCriminalCase.getIncidentTime());
+    }
+    @Before
+    public void setUp() throws Exception {
+        List<CriminalCase> criminalCases = new ArrayList<>();
+        criminalCases.add(new CriminalCase("BBBB",123143223));
+        criminalCases.add(new CriminalCase("BBBB",123143224));
+        criminalCases.add(new CriminalCase("CCCC",764832224));
+        criminalCasesRepository.saveAll(criminalCases);
+    }
 }
