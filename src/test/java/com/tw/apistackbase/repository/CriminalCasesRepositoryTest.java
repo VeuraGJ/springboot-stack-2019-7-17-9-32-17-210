@@ -56,6 +56,12 @@ public class CriminalCasesRepositoryTest {
         List<CriminalCase> criminalCases = criminalCasesRepository.findAllByCaseName("BBBB");
         assertEquals(2,criminalCases.size());
     }
+    @Test
+    public void should_return_delete_criminal_case_when_delete_function(){
+        criminalCasesRepository.deleteById(Long.valueOf(1));
+        List<CriminalCase> criminalCases = criminalCasesRepository.findAll();
+        assertEquals(2,criminalCases.size());
+    }
     @Before
     public void setUp() throws Exception {
         List<CriminalCase> criminalCases = new ArrayList<>();
