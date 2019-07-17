@@ -1,5 +1,6 @@
 package com.tw.apistackbase.repository;
 
+import com.tw.apistackbase.entity.CaseDetail;
 import com.tw.apistackbase.entity.CriminalCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,12 +63,18 @@ public class CriminalCasesRepositoryTest {
         List<CriminalCase> criminalCases = criminalCasesRepository.findAll();
         assertEquals(2,criminalCases.size());
     }
+    @Test
+    public void should_specific_criminalCase_with_caseDetail_when_query_function(){
+        CriminalCase criminalCase = criminalCasesRepository.findById(Long.valueOf(1)).orElse(null);
+        Assertions.assertEquals("IHIUGIBUKB",criminalCase.getCaseDetail().getObjectiveDescription());
+        Assertions.assertEquals("DHOUHUIUYG",criminalCase.getCaseDetail().getSubjectiveDescription());
+    }
     @Before
     public void setUp() throws Exception {
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("BBBB",123143223));
-        criminalCases.add(new CriminalCase("BBBB",123143224));
-        criminalCases.add(new CriminalCase("CCCC",764832224));
+        criminalCases.add(new CriminalCase("BBBB",123143223,new CaseDetail("DHOUHUIUYG","IHIUGIBUKB")));
+        criminalCases.add(new CriminalCase("BBBB",123143224,new CaseDetail("DHOUHUYG","IHIUGIBUKB")));
+        criminalCases.add(new CriminalCase("CCCC",764832224,new CaseDetail("YG","IUKB")));
         criminalCasesRepository.saveAll(criminalCases);
     }
 }

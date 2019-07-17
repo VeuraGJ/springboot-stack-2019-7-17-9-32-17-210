@@ -7,13 +7,20 @@ public class CaseDetail {
     @Id
     @GeneratedValue
     private long caseDetailId;
+    @Column(nullable = false)
     private String subjectiveDescription;
+    @Column(nullable = false)
     private String objectiveDescription;
     @OneToOne
     private CriminalCase criminalCase;
 
     public CaseDetail() {
 
+    }
+
+    public CaseDetail(String subjectiveDescription, String objectiveDescription) {
+        this.subjectiveDescription = subjectiveDescription;
+        this.objectiveDescription = objectiveDescription;
     }
 
     public CaseDetail(String subjectiveDescription, String objectiveDescription, CriminalCase criminalCase) {
