@@ -41,7 +41,6 @@ public class CriminalCasesRepositoryTest {
     @Test
     public void should_return_specific_criminal_cases_when_query_function(){
         CriminalCase criminalCase = criminalCasesRepository.findById(Long.valueOf(1)).orElse(null);
-        System.out.println(criminalCase.getCaseName()+criminalCase.getIncidentTime());
         assertSame("BBBB",criminalCase.getCaseName());
         assertEquals(123143223,criminalCase.getIncidentTime());
     }
@@ -51,6 +50,11 @@ public class CriminalCasesRepositoryTest {
         CriminalCase queryCriminalCase = criminalCases.stream().findFirst().orElse(null);
         assertSame("CCCC",queryCriminalCase.getCaseName());
         assertEquals(764832224,queryCriminalCase.getIncidentTime());
+    }
+    @Test
+    public void should_return_all_criminal_cases_when_find_by_caseName_function(){
+        List<CriminalCase> criminalCases = criminalCasesRepository.findAllByCaseName("BBBB");
+        assertEquals(2,criminalCases.size());
     }
     @Before
     public void setUp() throws Exception {
