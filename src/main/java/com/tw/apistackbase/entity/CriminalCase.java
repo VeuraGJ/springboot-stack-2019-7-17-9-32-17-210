@@ -14,6 +14,14 @@ public class CriminalCase {
     @Column(nullable = false)
     private long incidentTime;
 
+    public CriminalCase() {
+    }
+
+    public CriminalCase(String caseName, long incidentTime) {
+        this.caseName = caseName;
+        this.incidentTime = incidentTime;
+    }
+
     public long getId() {
         return id;
     }
