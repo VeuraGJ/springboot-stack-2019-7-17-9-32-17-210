@@ -4,6 +4,7 @@ import com.tw.apistackbase.entity.CaseDetail;
 import com.tw.apistackbase.entity.CriminalCase;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -31,21 +32,22 @@ public class CaseDetailRepositoryTest {
     @Test
     public void should_not_add_casedetail_case_when_give_unvaild_casedetail(){
         CaseDetail caseDetail = new CaseDetail();
-        CaseDetail saveCaseDetail = caseDetailRepository.save(caseDetail);
-        assertEquals(null,saveCaseDetail.getObjectiveDescription());
+        Assertions.assertThrows(Exception.class,()->{
+            caseDetailRepository.saveAndFlush(caseDetail);
+        });
     }
     @Test
     public void should_specific_casedetail_with_criminalcase_when_query_function(){
-        CaseDetail caseDetail = caseDetailRepository.findById(Long.valueOf(1)).orElse(null);
-        assertEquals("BBBB",caseDetail.getCriminalCase().getCaseName());
-        assertEquals(123143223,caseDetail.getCriminalCase().getIncidentTime());
+        CaseDetail caseDetail = caseDetailRepository.findById(1L).orElse(null);
+        assertEquals("DHOUHUIUYG",caseDetail.getSubjectiveDescription());
+        assertEquals("IHIUGIBUKB",caseDetail.getObjectiveDescription());
     }
     @Before
     public void setUp() throws Exception {
         List<CaseDetail> caseDetails = new ArrayList<>();
-        caseDetails.add(new CaseDetail("DHOUHUIUYG","IHIUGIBUKB",new CriminalCase("BBBB",123143223)));
-        caseDetails.add(new CaseDetail("DHOUHUYG","IHIUGIBUKB",new CriminalCase("BBBB",123143233)));
-        caseDetails.add(new CaseDetail("YG","IUKB",new CriminalCase("CCCC",663143223)));
+        caseDetails.add(new CaseDetail("DHOUHUIUYG","IHIUGIBUKB"));
+        caseDetails.add(new CaseDetail("DHOUHUYG","IHIUGIBUKB"));
+        caseDetails.add(new CaseDetail("YG","IUKB"));
         caseDetailRepository.saveAll(caseDetails);
     }
 }

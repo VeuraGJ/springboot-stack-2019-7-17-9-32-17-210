@@ -1,5 +1,6 @@
 package com.tw.apistackbase.repository;
 
+import com.tw.apistackbase.entity.CaseDetail;
 import com.tw.apistackbase.entity.CriminalCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,12 +68,12 @@ public class CriminalCasesRepositoryTest {
         List<CriminalCase> criminalCases = criminalCasesRepository.findAll();
         assertEquals(2,criminalCases.size());
     }
-//    @Test
-//    public void should_specific_criminalCase_with_caseDetail_when_query_function(){
-//        CriminalCase criminalCase = criminalCasesRepository.findById(Long.valueOf(1)).orElse(null);
-//        Assertions.assertEquals("IHIUGIBUKB",criminalCase.getCaseDetail().getObjectiveDescription());
-//        Assertions.assertEquals("DHOUHUIUYG",criminalCase.getCaseDetail().getSubjectiveDescription());
-//    }
+    @Test
+    public void should_specific_criminalCase_with_caseDetail_when_query_function(){
+        CriminalCase criminalCase = criminalCasesRepository.findById(1L).orElse(null);
+        Assertions.assertEquals("IHIUGIBUKB",criminalCase.getCaseDetail().getObjectiveDescription());
+        Assertions.assertEquals("DHOUHUIUYG",criminalCase.getCaseDetail().getSubjectiveDescription());
+    }
 //    @Test
 //    public void should_specific_criminalCase_with_procuratorate_when_query_function(){
 //        CriminalCase criminalCase = criminalCasesRepository.findById(Long.valueOf(1)).orElse(null);
@@ -81,9 +82,9 @@ public class CriminalCasesRepositoryTest {
     @Before
     public void setUp() throws Exception {
         List<CriminalCase> criminalCases = new ArrayList<>();
-        criminalCases.add(new CriminalCase("BBBB",123143223));
-        criminalCases.add(new CriminalCase("BBBB",123143224));
-        criminalCases.add(new CriminalCase("CCCC",764832224));
+        criminalCases.add(new CriminalCase("BBBB",123143223,new CaseDetail("DHOUHUIUYG","IHIUGIBUKB")));
+        criminalCases.add(new CriminalCase("BBBB",123143224,new CaseDetail("DOUHUIUYG","IHIUGIBUKB")));
+        criminalCases.add(new CriminalCase("CCCC",764832224,new CaseDetail("UIUYG","IHIUGIBUKB")));
 //        criminalCases.add(new CriminalCase("DDDD",640839224,new Procuratorate("UUUU")));
         criminalCasesRepository.saveAll(criminalCases);
 //        caseDetailRepository.save(new CaseDetail("YGY","IUKB"));

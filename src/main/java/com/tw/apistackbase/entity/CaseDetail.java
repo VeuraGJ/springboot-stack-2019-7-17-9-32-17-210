@@ -3,6 +3,7 @@ package com.tw.apistackbase.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name ="case_detail")
 public class CaseDetail {
     @Id
     @GeneratedValue
@@ -11,8 +12,8 @@ public class CaseDetail {
     private String subjectiveDescription;
     @Column(nullable = false)
     private String objectiveDescription;
-    @OneToOne
-    private CriminalCase criminalCase;
+//    @OneToOne(mappedBy = "case")
+//    private CriminalCase criminalCase;
 
     public CaseDetail() {
 
@@ -23,11 +24,11 @@ public class CaseDetail {
         this.objectiveDescription = objectiveDescription;
     }
 
-    public CaseDetail(String subjectiveDescription, String objectiveDescription, CriminalCase criminalCase) {
-        this.subjectiveDescription = subjectiveDescription;
-        this.objectiveDescription = objectiveDescription;
-        this.criminalCase = criminalCase;
-    }
+//    public CaseDetail(String subjectiveDescription, String objectiveDescription, CriminalCase criminalCase) {
+//        this.subjectiveDescription = subjectiveDescription;
+//        this.objectiveDescription = objectiveDescription;
+//        this.criminalCase = criminalCase;
+//    }
 
     public long getCaseDetailId() {
         return caseDetailId;
@@ -53,11 +54,11 @@ public class CaseDetail {
         this.objectiveDescription = objectiveDescription;
     }
 
-    public CriminalCase getCriminalCase() {
-        return criminalCase;
-    }
-
-    public void setCriminalCase(CriminalCase criminalCase) {
-        this.criminalCase = criminalCase;
-    }
+//    public CriminalCase getCriminalCase() {
+//        return criminalCase;
+//    }
+//
+//    public void setCriminalCase(CriminalCase criminalCase) {
+//        this.criminalCase = criminalCase;
+//    }
 }

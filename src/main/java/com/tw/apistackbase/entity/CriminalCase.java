@@ -3,6 +3,7 @@ package com.tw.apistackbase.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name="case")
 public class CriminalCase {
     @Id
     @GeneratedValue
@@ -11,8 +12,10 @@ public class CriminalCase {
     private String caseName;
     @Column(nullable = false)
     private long incidentTime;
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL )
     private CaseDetail caseDetail;
+//    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional = false)
+//    private Procuratorate procuratorate;
 
     public CriminalCase() {
     }
@@ -27,6 +30,20 @@ public class CriminalCase {
         this.incidentTime = incidentTime;
         this.caseDetail = caseDetail;
     }
+//
+//    public CriminalCase(String caseName, long incidentTime, Procuratorate procuratorate) {
+//        this.caseName = caseName;
+//        this.incidentTime = incidentTime;
+//        this.procuratorate = procuratorate;
+//    }
+
+//    public Procuratorate getProcuratorate() {
+//        return procuratorate;
+//    }
+//
+//    public void setProcuratorate(Procuratorate procuratorate) {
+//        this.procuratorate = procuratorate;
+//    }
 
     public CaseDetail getCaseDetail() {
         return caseDetail;
