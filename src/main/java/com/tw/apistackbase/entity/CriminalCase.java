@@ -1,5 +1,7 @@
 package com.tw.apistackbase.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,8 +16,8 @@ public class CriminalCase {
     private long incidentTime;
     @OneToOne(cascade=CascadeType.ALL )
     private CaseDetail caseDetail;
-//    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional = false)
-//    private Procuratorate procuratorate;
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Procuratorate procuratorate;
 
     public CriminalCase() {
     }
@@ -30,20 +32,21 @@ public class CriminalCase {
         this.incidentTime = incidentTime;
         this.caseDetail = caseDetail;
     }
-//
-//    public CriminalCase(String caseName, long incidentTime, Procuratorate procuratorate) {
-//        this.caseName = caseName;
-//        this.incidentTime = incidentTime;
-//        this.procuratorate = procuratorate;
-//    }
 
-//    public Procuratorate getProcuratorate() {
-//        return procuratorate;
-//    }
-//
-//    public void setProcuratorate(Procuratorate procuratorate) {
-//        this.procuratorate = procuratorate;
-//    }
+
+    public CriminalCase(String caseName, long incidentTime, Procuratorate procuratorate) {
+        this.caseName = caseName;
+        this.incidentTime = incidentTime;
+        this.procuratorate = procuratorate;
+    }
+
+    public Procuratorate getProcuratorate() {
+        return procuratorate;
+    }
+
+    public void setProcuratorate(Procuratorate procuratorate) {
+        this.procuratorate = procuratorate;
+    }
 
     public CaseDetail getCaseDetail() {
         return caseDetail;

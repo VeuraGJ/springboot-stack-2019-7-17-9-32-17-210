@@ -1,9 +1,7 @@
 package com.tw.apistackbase.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Procuratorate {
@@ -12,7 +10,8 @@ public class Procuratorate {
     private long id;
     @Column(nullable = false,length = 50,unique = true)
     private String name;
-
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "procuratorate",fetch = FetchType.LAZY)
+    private List<CriminalCase> criminalCases;
     public Procuratorate() {
     }
 
@@ -34,5 +33,13 @@ public class Procuratorate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<CriminalCase> getCriminalCases() {
+        return criminalCases;
+    }
+
+    public void setCriminalCases(List<CriminalCase> criminalCases) {
+        this.criminalCases = criminalCases;
     }
 }

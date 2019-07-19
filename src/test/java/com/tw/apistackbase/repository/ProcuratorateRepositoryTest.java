@@ -23,7 +23,7 @@ public class ProcuratorateRepositoryTest {
     private ProcuratorateRepository procuratorateRepository;
     @Test
     public void should_procuratorate_when_query_function(){
-       Procuratorate procuratorate=procuratorateRepository.findById(Long.valueOf(1)).orElse(null);
+       Procuratorate procuratorate=procuratorateRepository.findById(1L).orElse(null);
        assertEquals("AAAA",procuratorate.getName());
     }
     @Before
